@@ -6,16 +6,17 @@ export default function Header() {
     const navigate = useNavigate();
 
     function onClickHandlerRegisterHandler() {
-        navigate("/register");
+        navigate("/signUp");
     }
 
     function onClickLoginRegisterHandler() {
-        navigate("/login");
+        navigate("/signIn");
     }
 
     return(
         <div>
-            <button onClick={onClickHandlerRegisterHandler}>Register</button>
+            <button onClick={onClickHandlerRegisterHandler}>Sign up</button>
+            <button onClick={onClickLoginRegisterHandler}>Sign in</button>
         </div>
     );
 }
