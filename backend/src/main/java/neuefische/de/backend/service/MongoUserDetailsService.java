@@ -27,18 +27,8 @@ public class MongoUserDetailsService implements UserDetailsService {
         UserNoSave optionalUserNoSave = userRepo.findUserNoSaveByName(name)
                 .orElseThrow(() -> new UsernameNotFoundException("User with this username: " + name + "not found"));
         return new User(optionalUserNoSave.getName(), optionalUserNoSave.getPassword(), List.of());
-
     }
-   /*public UserDTO addUser(UserNoSave userNoSave){
-        userNoSave.setId(generateId.generateUId());
-        userNoSave.getPassword(passwordEncoder.encode(userNoSave.getPassword()));
-        userRepo.insert(userNoSave);
-        return new UserDTO(
-                userNoSave.getId(),
-        userNoSave.getName(),
-        userNoSave.getImg()
-        );
-}*/
+
 public UserDTO getUserPageById(String id){
     Optional<UserNoSave> userNoSave = userRepo.findById(id);
     return userNoSave.get().convertUserToUserDTO();
@@ -50,5 +40,16 @@ public List<UserDTO> getAllUser(){
             userDTOS.add(userNoSave.convertUserToUserDTO());
         }
         return userDTOS;
+    }
+
+    public UserDTO addUser(UserNoSave userNoSaveToAdd) {
+        userNoSaveToAdd.setId(generateId.generateUId());
+        userNoSaveToAdd.setPassword(passwordEncoder.encode(userNoSaveToAdd.getPassword()));
+        userRepo.insert(userNoSaveToAdd);
+        return new UserDTO(
+                userNoSaveToAdd.getId(),
+                userNoSaveToAdd.getName(),
+                userNoSaveToAdd.getImg()
+        );
     }
 }
