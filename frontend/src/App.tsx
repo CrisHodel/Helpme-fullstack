@@ -11,7 +11,7 @@ function App() {
             <div className="App">
                 <header><Header/></header>
                     <Routes>
-                        <Route path={"/register"} element={<RegisterPage/>}/>
+                        <Route path={"/signUp"} element={<RegisterPage/>}/>
                         <Route path="/" element={<HomePage />} />
                     </Routes>
             </div>
