@@ -20,8 +20,8 @@ public class UserNoSave {
         return new UserDTO(
                 id,
                 name,
-                password,
                 img
         );
     }
+
 }
