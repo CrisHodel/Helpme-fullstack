@@ -1,0 +1,56 @@
+package neuefische.de.backend.security;
+
+import jdk.jfr.Enabled;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.security.config.Customizer;
+import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.config.http.SessionCreationPolicy;
+import org.springframework.security.core.userdetails.User;
+import org.springframework.security.crypto.argon2.Argon2PasswordEncoder;
+import org.springframework.security.crypto.password.NoOpPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.provisioning.InMemoryUserDetailsManager;
+import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.csrf.CookieCsrfTokenRepository;
+import org.springframework.security.web.csrf.CsrfTokenRequestAttributeHandler;
+
+@EnableWebSecurity
+@Configuration
+public class SecurityConfig {
+
+    private final PasswordEncoder passwordEncoder = Argon2PasswordEncoder.defaultsForSpringSecurity_v5_8();
+
+    @Bean
+    public InMemoryUserDetailsManager userDetailsService(){
+        return new InMemoryUserDetailsManager(
+                User.builder()
+                        .username("Cris")
+                        .password("1234")
+                        .roles("undefinied")
+                        .build()
+        );
+    }
+
+    @Bean
+    public PasswordEncoder passwordEncoder(){
+        return NoOpPasswordEncoder.getInstance();
+    }
+
+    @Bean
+    public SecurityFilterChain filterChain(HttpSecurity http) throws Exception{
+        CsrfTokenRequestAttributeHandler requestAttributeHandler = new CsrfTokenRequestAttributeHandler();
+        requestAttributeHandler.setCsrfRequestAttributeName(null);
+        return http
+                .csrf(csrf -> csrf
+                        .csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse())
+                        .csrfTokenRequestHandler(requestAttributeHandler))
+                        .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.ALWAYS))
+                .httpBasic(Customizer.withDefaults())
+                .authorizeHttpRequests()
+                .requestMatchers("/api/user").permitAll()
+                .anyRequest().permitAll()
+                .and().build();
+    }
+}
