@@ -16,7 +16,7 @@ export default function RegisterPage(){
     function addUser(event: FormEvent<HTMLFormElement>){
         event.preventDefault();
         console.log(name)
-        axios.post("/api/register/user", {
+        axios.post("/api/signUp/user", {
             name: name,
             password: password
         })
