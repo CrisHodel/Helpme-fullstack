@@ -14,9 +14,13 @@ export default function Header() {
     }
 
     return(
-        <div>
-            <button onClick={onClickHandlerRegisterHandler}>Sign up</button>
-            <button onClick={onClickLoginRegisterHandler}>Sign in</button>
-        </div>
+        <form>
+            <div>
+                <button onClick={onClickHandlerRegisterHandler}>Sign up</button>
+            </div>
+            <div>
+                <button color={'primary'} onClick={onClickLoginRegisterHandler}>Sign in</button>
+            </div>
+        </form>
     );
 }
