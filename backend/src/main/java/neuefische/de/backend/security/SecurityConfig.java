@@ -1,15 +1,13 @@
 package neuefische.de.backend.security;
 
-import jdk.jfr.Enabled;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.security.config.Customizer;
+import org.springframework.http.HttpStatus;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.crypto.argon2.Argon2PasswordEncoder;
-import org.springframework.security.crypto.password.NoOpPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 import org.springframework.security.web.SecurityFilterChain;
@@ -19,8 +17,6 @@ import org.springframework.security.web.csrf.CsrfTokenRequestAttributeHandler;
 @EnableWebSecurity
 @Configuration
 public class SecurityConfig {
-
-    private final PasswordEncoder passwordEncoder = Argon2PasswordEncoder.defaultsForSpringSecurity_v5_8();
 
     @Bean
     public InMemoryUserDetailsManager userDetailsService(){
@@ -35,7 +31,7 @@ public class SecurityConfig {
 
     @Bean
     public PasswordEncoder passwordEncoder(){
-        return NoOpPasswordEncoder.getInstance();
+        return Argon2PasswordEncoder.defaultsForSpringSecurity_v5_8();
     }
 
     @Bean
@@ -47,10 +43,15 @@ public class SecurityConfig {
                         .csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse())
                         .csrfTokenRequestHandler(requestAttributeHandler))
                         .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.ALWAYS))
-                .httpBasic(Customizer.withDefaults())
-                .authorizeHttpRequests()
-                .requestMatchers("/api/user").permitAll()
-                .anyRequest().permitAll()
-                .and().build();
-    }
+                .httpBasic(basic->basic.authenticationEntryPoint(
+                        (request, response, authException) -> response.sendError(
+                                        HttpStatus.UNAUTHORIZED.value(),
+                                HttpStatus.UNAUTHORIZED.getReasonPhrase()
+                        )))
+                .authorizeHttpRequests(auth -> {
+                            auth.requestMatchers(("/api/signUp")).authenticated();
+                            auth.anyRequest().permitAll();
+                        })
+                .build();
+                }
 }
