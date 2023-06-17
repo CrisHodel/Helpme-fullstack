@@ -6,6 +6,7 @@ import RegisterPage from "./pages/RegisterPage";
 import Header from "./pages/Header";
 import LoginPage from "./pages/LoginPage";
 import useUser from "./hooks/useUser";
+import ProtectedRoutes from "./pages/ProtectedRoutes";
 
 
 function App() {
@@ -18,8 +19,12 @@ function App() {
                 <header><Header/></header>
                     <Routes>
                         <Route path={"/signUp"} element={<RegisterPage/>}/>
-                        <Route path="/" element={<HomePage />} />
+
+                        <Route element={<ProtectedRoutes user={user}/>}>
+                            <Route path="/home" element={<HomePage />} />
+                        </Route>
                         <Route path={"/signIn"} element={<LoginPage login={login}/>}/>
+
                     </Routes>
             </div>
         </Router>
