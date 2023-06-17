@@ -2,7 +2,7 @@ package neuefische.de.backend.controller;
 
 import lombok.RequiredArgsConstructor;
 import neuefische.de.backend.model.UserDTO;
-import neuefische.de.backend.model.UserNoSave;
+import neuefische.de.backend.model.User;
 import neuefische.de.backend.service.MongoUserDetailsService;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -17,7 +17,7 @@ public class UserController {
     private final MongoUserDetailsService userService;
 
     @PostMapping("/signUp/user")
-    public UserDTO addUser(@RequestBody UserNoSave userNoSaveToAdd){
-        return userService.addUser(userNoSaveToAdd);
+    public UserDTO addUser(@RequestBody User userToAdd){
+        return userService.addUser(userToAdd);
     }
 }
