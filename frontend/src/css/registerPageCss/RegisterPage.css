@@ -71,3 +71,23 @@ button:hover {
         width: 100%;
     }
 }
+.registerPage form {
+    display: grid;
+    grid-gap: 10px;
+    justify-items: center;
+    align-items: center;
+    background-color: white;
+}
+
+input[type=text],
+input[type=password] {
+    width: 300px; /* Feste Breite */
+    padding: 12px 20px;
+    margin: 8px 0;
+    display: inline-block;
+    border: 10px solid #ccc;
+    box-sizing: border-box;
+}
+
+/* Restlicher CSS-Code... */
+
