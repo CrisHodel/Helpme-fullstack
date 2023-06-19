@@ -1,6 +1,6 @@
 import React from "react";
 import {useNavigate} from "react-router-dom";
-import "../css/headerPageCss/HeaderPage.css";
+import "../css/headerPageCss/Header.css";
 
 export default function Header() {
 
