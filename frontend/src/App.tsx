@@ -7,6 +7,7 @@ import Header from "./pages/Header";
 import LoginPage from "./pages/LoginPage";
 import useUser from "./hooks/useUser";
 import ProtectedRoutes from "./pages/ProtectedRoutes";
+import FooterPage from "./pages/Footer";
 
 
 function App() {
@@ -21,11 +22,13 @@ function App() {
                         <Route path={"/signUp"} element={<RegisterPage/>}/>
 
                         <Route element={<ProtectedRoutes user={user}/>}>
-                            <Route path="/home" element={<HomePage />} />
+
                         </Route>
                         <Route path={"/signIn"} element={<LoginPage login={login}/>}/>
+                        <Route path="/home" element={<HomePage />} />
 
                     </Routes>
+                <header><FooterPage/></header>
             </div>
         </Router>
     );

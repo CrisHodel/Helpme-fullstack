@@ -14,17 +14,17 @@
 }
 
 .header-signin-button {
-    display: flex; /* Zeige die Elemente in einer Reihe an */
-    margin-left: 8px; /* Abstand zwischen den Buttons */
-    font-size: 14px; /* Anpassung der Schriftgröße */
-    padding: 6px 12px; /* Anpassung der Button-Größe */
-    background-color: #03a9f4; /* Hintergrundfarbe für "Sign in"-Button */
-    color: #fff; /* Textfarbe für "Sign in"-Button */
-    justify-content: flex-end; /* Ausrichtung am rechten Rand */
+    display: flex;
+    margin-left: 8px;
+    font-size: 14px;
+    padding: 6px 12px;
+    background-color: #03a9f4;
+    color: #fff;
+    justify-content: flex-end;
 }
 
 .header-home-button {
-    margin-right: auto; /* Verschiebe den Home-Button ganz nach links */
+    margin-left: auto; /* Verschiebe den Home-Button ganz nach links */
     font-size: 14px; /* Anpassung der Schriftgröße */
     padding: 6px 12px; /* Anpassung der Button-Größe */
     background-color: #4caf50; /* Hintergrundfarbe für "Home"-Button */
