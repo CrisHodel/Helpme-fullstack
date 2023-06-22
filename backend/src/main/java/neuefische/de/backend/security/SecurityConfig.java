@@ -49,7 +49,7 @@ public class SecurityConfig {
                                 HttpStatus.UNAUTHORIZED.getReasonPhrase()
                         )))
                 .authorizeHttpRequests(auth -> {
-                            auth.requestMatchers(("/api/signUp")).authenticated();
+                            auth.requestMatchers(("/api/signIn")).permitAll();
                             auth.anyRequest().permitAll();
                         })
                 .build();

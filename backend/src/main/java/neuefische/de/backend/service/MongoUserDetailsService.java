@@ -40,8 +40,8 @@ public class MongoUserDetailsService implements UserDetailsService {
     }
 
     public UserDTO getUserPageById(String id){
-    Optional<User> userNoSave = userRepo.findById(id);
-    return userNoSave.get().convertUserToUserDTO();
+    Optional<User> user = userRepo.findById(id);
+    return user.get().convertUserToUserDTO();
 }
     public List<UserDTO> getAllUser(){
         List<User> users = new ArrayList<>(userRepo.findAll());

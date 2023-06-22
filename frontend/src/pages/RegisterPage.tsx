@@ -13,7 +13,8 @@ export default function RegisterPage(){
 
     const [password, setPassword] = useState<string>("");
 
-    function addUser(){
+    function addUser(e: FormEvent<HTMLFormElement>){
+        e.preventDefault()
         console.log(name)
         axios.post("/api/signUp/user", {
             name: name,
@@ -27,14 +28,13 @@ export default function RegisterPage(){
     }
 
     function changeEventHandlerUserName(event: ChangeEvent<HTMLInputElement>){
+        console.log(name);
         setName(event.target.value)
     }
 
     function changeEventHandlerUserPassword(event: ChangeEvent<HTMLInputElement>){
         setPassword(event.target.value)
     }
-
-    useEffect(addUser, [])
 
     return(
         <div className={"registerPage"}>
@@ -46,10 +46,6 @@ export default function RegisterPage(){
                     <div>
                         <label htmlFor="Password"><b>Password</b></label>
                             <input placeholder={"Password"} type="password" value={password} onChange={changeEventHandlerUserPassword}/>
-                    </div>
-                    <div>
-                        <label htmlFor="psw-repeat"><b>Repeat Password</b></label>
-                            <input placeholder={"Repeat Password"} type="password" value={password} onChange={changeEventHandlerUserPassword}/>
                     </div>
                     <div>
                         <label>
