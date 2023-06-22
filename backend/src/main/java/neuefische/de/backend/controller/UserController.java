@@ -4,10 +4,8 @@ import lombok.RequiredArgsConstructor;
 import neuefische.de.backend.model.UserDTO;
 import neuefische.de.backend.model.User;
 import neuefische.de.backend.service.MongoUserDetailsService;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequiredArgsConstructor
@@ -20,4 +18,15 @@ public class UserController {
     public UserDTO addUser(@RequestBody User userToAdd){
         return userService.addUser(userToAdd);
     }
+
+    @PostMapping("/signIn")
+    void login() {
+        SecurityContextHolder.getContext().getAuthentication().getName();
+    }
+
+    @GetMapping("/user/{id}")
+    public UserDTO getUserPageById(@PathVariable String id) {
+        return userService.getUserPageById(id);
+    }
 }
+
