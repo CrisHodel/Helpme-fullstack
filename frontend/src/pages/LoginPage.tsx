@@ -18,7 +18,7 @@ export default function LoginPage(props: Props){
         event.preventDefault()
         props.login(username, password)
             .then(() => {
-                navigate(("/"))
+                navigate(("/home"))
             })
             .catch(error => {console.error()});
     }
@@ -35,11 +35,11 @@ export default function LoginPage(props: Props){
         <div className={"signInPage"}>
             <form onSubmit={loginOnSubmit}>
                 <div className={"signInPage"}>
-                    <label htmlFor="username"><b>Username</b></label>
+                    <label><b>Username</b></label>
                     <input placeholder={"UserName"} type="text" onChange={changeHandlerUserName}/>
                     <div/>
                         <div>
-                            <label htmlFor="psw"><b>Password</b></label>
+                            <label><b>Password</b></label>
                                 <input placeholder={"Password"} type="text" onChange={changeHandlerPassword}/>
                         </div>
                     <div>
