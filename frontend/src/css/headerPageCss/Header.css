@@ -1,33 +1,52 @@
 .header-container {
-    display: flex; /* Zeige die Elemente in einer Reihe an */
-    justify-content: flex-end; /* Ausrichtung am rechten Rand */
+    display: flex;
+    justify-content: end;
+    align-items: center;
+    position: relative; /* Positionierung für das Logo */
+    padding-bottom: 10px; /* Abstand unterhalb des Headers */
+    border-bottom: 1px dashed #ccc; /* Gestrichelte Linie unterhalb des Headers */
 }
 
 .header-signup-button {
-    display: flex; /* Zeige die Elemente in einer Reihe an */
-    margin-left: 8px; /* Abstand zwischen den Buttons */
-    font-size: 14px; /* Anpassung der Schriftgröße */
-    padding: 6px 12px; /* Anpassung der Button-Größe */
-    background-color: #e91e63; /* Hintergrundfarbe für "Sign up"-Button */
-    color: #fff; /* Textfarbe für "Sign up"-Button */
-    justify-content: flex-end; /* Ausrichtung am rechten Rand */
+    font-size: 14px;
+    padding: 6px 12px;
+    background-color: #e91e63;
+    color: #fff;
 }
 
 .header-signin-button {
-    display: flex;
-    margin-left: 8px;
     font-size: 14px;
     padding: 6px 12px;
     background-color: #03a9f4;
     color: #fff;
-    justify-content: flex-end;
 }
 
 .header-home-button {
-    margin-left: auto; /* Verschiebe den Home-Button ganz nach links */
-    font-size: 14px; /* Anpassung der Schriftgröße */
-    padding: 6px 12px; /* Anpassung der Button-Größe */
-    background-color: #4caf50; /* Hintergrundfarbe für "Home"-Button */
-    color: #fff; /* Textfarbe für "Home"-Button */
+    font-size: 14px;
+    padding: 6px 12px;
+    background-color: #4caf50;
+    color: #fff;
 }
 
+.header-container .logo {
+    width: 40px;
+    height: 40px;
+    position: absolute; /* Fixiere das Logo */
+    top: 0; /* Positioniere es oben */
+    left: 0; /* Positioniere es links */
+    margin-left: 10px; /* Füge einen Abstand zum linken Rand hinzu */
+}
+
+.logo-container {
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.logo-text {
+    margin-left: 10px;
+    font-size: 10px;
+    font-weight: bold;
+    top: 0; /* Positioniere es oben */
+    left: 0; /* Positioniere es links */
+}
