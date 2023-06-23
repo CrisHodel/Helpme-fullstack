@@ -1,0 +1,18 @@
+/* footer.css */
+footer {
+    background-color: lightgray;
+    padding: 20px;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+}
+
+h3 {
+    color: blue;
+    font-size: 20px;
+}
+
+p:first-child {
+    font-weight: bold;
+}
