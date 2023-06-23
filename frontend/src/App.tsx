@@ -9,7 +9,6 @@ import useUser from "./hooks/useUser";
 import ProtectedRoutes from "./pages/ProtectedRoutes";
 import FooterPage from "./pages/Footer";
 
-
 function App() {
 
     const {login, user} = useUser()
