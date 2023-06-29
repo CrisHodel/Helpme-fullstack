@@ -3,12 +3,13 @@
     flex-direction: column;
     align-items: center;
     padding: 20px;
+    position: relative;
 }
 
 .topic-nav {
     display: flex;
-    flex-direction: column; /* Changed to row */
-    justify-content: center; /* Added justify-content */
+    flex-direction: column;
+    justify-content: center;
     margin-top: 0;
     align-self: start;
 }
@@ -25,39 +26,51 @@
 }
 
 .input-form {
-    display: flex; /* Added display */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
     width: 500px;
-}
-
-.submit-button {
-    background-color: #04AA6D;
-    color: white;
-    border: none;
-    padding: 10px 20px;
-    cursor: pointer;
-    width: 100px;
+    margin-top: -210px;
+    height: 300px; /* Hier können Sie die gewünschte Höhe einstellen */
 }
 
 .input-field {
     outline: none;
-    background-color: #F0F0F0;
+    background-color: white;
     color: #333333;
     border: 1px solid #CCCCCC;
     border-radius: 4px;
-    padding: 8px;
+    padding: 12px; /* Hier können Sie die gewünschte Padding-Größe einstellen */
     box-shadow: 0 2px 4px rgba(6, 8, 0, 0.1);
+    margin-bottom: 10px; /* Fügt etwas Abstand zwischen den Eingabefeldern hinzu */
 }
 
-.post {
-    background-color: #F0F0F0;
-    color: #333333;
+.places-autocomplete {
+    margin-top: -70px;
+    margin-left: 350px;
+    position: absolute;
+    top: 90px; /* Passen Sie die gewünschte Position vertikal an */
+    width: 20%;
+}
+
+.places-suggestions {
+    background-color: #FFFFFF;
     border: 1px solid #CCCCCC;
     border-radius: 4px;
-    padding: 8px;
-    margin-bottom: 10px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    max-height: 80px; /* Passen Sie die gewünschte maximale Höhe der Vorschläge an */
+    overflow-y: auto;
+    padding: 20px;
 }
-.places-autocomplete{
-    position: relative;
-    top: -210px;
+
+.suggestion-item {
+    padding: 6px;
+    cursor: pointer;
+}
+
+.suggestion-item:hover {
+    background-color: #F2F2F2;
+}
+.description{
+   align-content: flex-end;
+
 }

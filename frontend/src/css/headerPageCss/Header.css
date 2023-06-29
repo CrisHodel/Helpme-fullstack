@@ -44,9 +44,11 @@
 }
 
 .logo-text {
-    margin-left: 10px;
+    position: fixed;
     font-size: 10px;
     font-weight: bold;
+    margin-top: 45px;
+    margin-left: 10px;
     top: 0; /* Positioniere es oben */
     left: 0; /* Positioniere es links */
 }

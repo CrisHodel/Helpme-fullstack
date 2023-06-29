@@ -19,17 +19,6 @@ import org.springframework.security.web.csrf.CsrfTokenRequestAttributeHandler;
 public class SecurityConfig {
 
     @Bean
-    public InMemoryUserDetailsManager userDetailsService(){
-        return new InMemoryUserDetailsManager(
-                User.builder()
-                        .username("Cris")
-                        .password("1234")
-                        .roles("undefinied")
-                        .build()
-        );
-    }
-
-    @Bean
     public PasswordEncoder passwordEncoder(){
         return Argon2PasswordEncoder.defaultsForSpringSecurity_v5_8();
     }

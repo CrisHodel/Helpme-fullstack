@@ -33,9 +33,9 @@ export default function Header() {
             <div>
                 <div>
                     <img className={"logo"} src={Help_me} alt="logo"/>
-                    <p className={"logo-text"}>Help me</p>
                 </div>
-            </div>‚
+            </div>
+            <p className={"logo-text"}>Help me</p>
         </form>
     );
 }

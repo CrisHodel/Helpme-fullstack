@@ -8,6 +8,10 @@ import LoginPage from "./pages/LoginPage";
 import useUser from "./hooks/useUser";
 import ProtectedRoutes from "./pages/ProtectedRoutes";
 import FooterPage from "./pages/Footer";
+import UserEditPage from "./pages/UserEditPage";
+import TranslatePage from "./pages/TranslatePage";
+import PostPage from "./pages/TranslatePage";
+
 
 function App() {
 
@@ -25,6 +29,9 @@ function App() {
                         </Route>
                         <Route path={"/signIn"} element={<LoginPage login={login}/>}/>
                         <Route path="/home" element={<HomePage />} />
+                        <Route path="/translate" element={<TranslatePage />} />
+                        <Route path={`/user/:id`} element={<UserEditPage/>}/>
+                        <Route path={`/post/:id`} element={<PostPage/>}/>
 
                     </Routes>
                 <header><FooterPage/></header>

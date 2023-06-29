@@ -1,7 +1,6 @@
 import axios from "axios";
 import React, {ChangeEvent, FormEvent, useEffect, useState} from "react";
 import {useNavigate} from "react-router-dom";
-import {Simulate} from "react-dom/test-utils";
 import "../css/registerPageCss/RegisterPage.css"
 
 
@@ -12,6 +11,9 @@ export default function RegisterPage(){
     const [name,  setName] = useState<string>("");
 
     const [password, setPassword] = useState<string>("");
+
+    const [registrationSuccess, setRegistrationSuccess] = useState<boolean>(false);
+
 
     function addUser(e: FormEvent<HTMLFormElement>){
         e.preventDefault()
@@ -39,7 +41,7 @@ export default function RegisterPage(){
     return(
         <div className={"registerPage"}>
                 <form onSubmit={addUser}>
-                    <div className={"registerPage"}>
+                    <div>
                         <label htmlFor="Username"><b>Username</b></label>
                             <input placeholder={"Username"} type="text" value={name} onChange={changeEventHandlerUserName}/>
                     </div>
@@ -57,6 +59,7 @@ export default function RegisterPage(){
                         <button type="submit" className="signupbtn">Sign Up</button>
                     </div>
                 </form>
+            {registrationSuccess && <p>You are registered!</p>}
         </div>
     );
 }

@@ -1,34 +1,57 @@
 import React, {ChangeEvent, useEffect, useState} from 'react';
-import { useNavigate } from "react-router-dom";
+import {useNavigate, useParams} from "react-router-dom";
+import axios from "axios";
 import "../css/homePageCss/HomePage.css";
 // @ts-ignore
 import PlacesAutocomplete, { geocodeByAddress, getLatLng } from 'react-places-autocomplete';
+import {Post} from "../types/PostType";
 
 export default function HomePage() {
     const navigate = useNavigate();
     const [inputValue, setInputValue] = useState("");
     const [answer, setAnswerValue] = useState("");
-    const [post, setPosts] = useState<string[]>([]);
     const [selectedPlace, setSelectedPlace] = useState("");
+    const [post, setPost] = useState<Post>({title: "", description: "", userName: "", postId: "" });
 
+
+    const [title, setTitle] =
+        useState<string>("")
+    const [description, setDescription] =
+        useState<string>("")
+    const [userName, setUserName] =
+        useState<string>("")
+
+    const params = useParams();
+    const id: string | undefined = params.id;
+
+    function addPost() {
+        axios.post("/api/post", {
+            title: title,
+            description: description,
+            userName: userName,
+        }).catch(error => console.error(error))
+        setTitle("")
+        setDescription("")
+        setUserName("")
+        console.log('post:', post); // Überprüfe hier den Wert von post
+    }
 
     function handleInputChange(event: ChangeEvent<HTMLInputElement>) {
-        setInputValue(event.target.value)
+        setInputValue(event.target.value);
     }
 
     function handleAnswerChange(event: ChangeEvent<HTMLInputElement>) {
-        setAnswerValue(event.target.value)
+        setAnswerValue(event.target.value);
     }
 
     function handleSubmit(event: ChangeEvent<HTMLFormElement>) {
-        event.preventDefault()
-        setPosts(prevPosts => [...prevPosts, inputValue]);
-        setInputValue("");
+        event.preventDefault();
+        // Handle form submission
     }
 
     function handleSubmitAnswer(event: ChangeEvent<HTMLFormElement>) {
-        event.preventDefault()
-        setAnswerValue("");
+        event.preventDefault();
+        // Handle answer submission
     }
 
     const handlePlaceChange = (address: string) => {
@@ -46,26 +69,30 @@ export default function HomePage() {
         }
     };
 
-    // @ts-ignore
-    // @ts-ignore
-    // @ts-ignore
-    // @ts-ignore
+
+    useEffect(() => {
+    axios.get("/api/post/" + id)
+        .then(response => setPost(response.data))
+        .catch(error => console.error(error));
+    }, [id]);
+
     return (
         <div className="home-page">
             <div className="topic-nav">
                 <div>
-                    <button onClick={() => window.location.href = '#translate'}>Translate</button>
+                    <button onClick={() => navigate('/translate')}>Translate</button>
                 </div>
                 <div>
-                    <button onClick={() => window.location.href = '#moving out'}>Moving out</button>
+                    <button onClick={() => navigate('/movingOut')}>Moving out</button>
                 </div>
                 <div>
-                    <button onClick={() => window.location.href = '#car repair'}>Car repairs</button>
+                    <button onClick={() => navigate('/repair')}>Car repairs</button>
                 </div>
                 <div>
-                    <button onClick={() => window.location.href = '#other'}>Other</button>
+                    <button onClick={() => navigate('/other')}>Other</button>
                 </div>
             </div>
+            <div>
             <PlacesAutocomplete
                 value={selectedPlace}
                 onChange={handlePlaceChange}
@@ -93,29 +120,44 @@ export default function HomePage() {
                     </div>
                 )}
             </PlacesAutocomplete>
+            </div>
             <form onSubmit={handleSubmit} className="input-form">
                 <input
                     type="text"
-                    value={inputValue}
-                    onChange={handleInputChange}
+                    value={title}
+                    onChange={(event) => setTitle(event.target.value)}
                     className="input-field"
-                    placeholder="Schreibe etwas oder stelle eine Frage..."
+                    placeholder="Titel eingeben..."
                 />
-                <button type="submit" className="submit-button">Post</button>
+                <input
+                    type="text"
+                    value={userName}
+                    onChange={(event) => setUserName(event.target.value)}
+                    className="input-field"
+                    placeholder="Benutzername eingeben..."
+                />
+                <textarea
+                    value={description}
+                    onChange={(event) => setDescription(event.target.value)}
+                    className="input-field"
+                    placeholder="Beschreibung eingeben..."
+                ></textarea>
+                <button style={{ color: 'black' }} onClick={addPost}>
+                    Post
+                </button>
             </form>
-            <div className="posts">
-                {post.map((post, index) => (
-                    <div key={index} className="post">
-                        {post}
-                    </div>
-                ))}
-                <input type="text" className="answer" value={answer} onChange={handleAnswerChange} />
-
-
-            </div>
-
+            <form onSubmit={handleSubmitAnswer} className="answer-form">
+                <input
+                    type="text"
+                    value={answer}
+                    onChange={handleAnswerChange}
+                    className="answer-field"
+                    placeholder="Antwort eingeben..."
+                />
+                <button type="submit" className="submit-button">
+                    Antworten
+                </button>
+            </form>
         </div>
     );
-
 }
-
