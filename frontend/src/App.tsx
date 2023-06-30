@@ -5,12 +5,13 @@ import { Route, BrowserRouter as Router, Routes } from 'react-router-dom';
 import RegisterPage from "./pages/RegisterPage";
 import Header from "./pages/Header";
 import LoginPage from "./pages/LoginPage";
-import useUser from "./hooks/useUser";
 import ProtectedRoutes from "./pages/ProtectedRoutes";
 import FooterPage from "./pages/Footer";
 import UserEditPage from "./pages/UserEditPage";
 import TranslatePage from "./pages/TranslatePage";
 import PostPage from "./pages/TranslatePage";
+import useUser from "./hooks/useUser";
+import MovingOutPage from "./pages/MovingOutPage";
 
 
 function App() {
@@ -30,6 +31,7 @@ function App() {
                         <Route path={"/signIn"} element={<LoginPage login={login}/>}/>
                         <Route path="/home" element={<HomePage />} />
                         <Route path="/translate" element={<TranslatePage />} />
+                        <Route path="/movingOut" element={<MovingOutPage />} />
                         <Route path={`/user/:id`} element={<UserEditPage/>}/>
                         <Route path={`/post/:id`} element={<PostPage/>}/>
 

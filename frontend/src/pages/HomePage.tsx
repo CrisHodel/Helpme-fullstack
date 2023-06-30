@@ -5,6 +5,7 @@ import "../css/homePageCss/HomePage.css";
 // @ts-ignore
 import PlacesAutocomplete, { geocodeByAddress, getLatLng } from 'react-places-autocomplete';
 import {Post} from "../types/PostType";
+import time from "../images/time.jpg";
 
 export default function HomePage() {
     const navigate = useNavigate();
@@ -77,7 +78,7 @@ export default function HomePage() {
     }, [id]);
 
     return (
-        <div className="home-page">
+        <div className="home-page" style={{ backgroundImage: `url(${time})`, height: '100vh', width: '100vw', position: 'fixed'}}>
             <div className="topic-nav">
                 <div>
                     <button onClick={() => navigate('/translate')}>Translate</button>
@@ -159,5 +160,6 @@ export default function HomePage() {
                 </button>
             </form>
         </div>
+
     );
 }

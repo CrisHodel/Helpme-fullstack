@@ -14,7 +14,7 @@ public class UserController {
 
     private final MongoUserDetailsService userService;
 
-    @PostMapping("/signUp/user")
+    @PostMapping("/signUp")
     public UserDTO addUser(@RequestBody User userToAdd){
         return userService.addUser(userToAdd);
     }

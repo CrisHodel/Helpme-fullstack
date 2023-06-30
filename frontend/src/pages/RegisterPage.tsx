@@ -2,6 +2,7 @@ import axios from "axios";
 import React, {ChangeEvent, FormEvent, useEffect, useState} from "react";
 import {useNavigate} from "react-router-dom";
 import "../css/registerPageCss/RegisterPage.css"
+import time from "../images/time.jpg";
 
 
 export default function RegisterPage(){
@@ -15,15 +16,15 @@ export default function RegisterPage(){
     const [registrationSuccess, setRegistrationSuccess] = useState<boolean>(false);
 
 
-    function addUser(e: FormEvent<HTMLFormElement>){
-        e.preventDefault()
+    function addUser(event: FormEvent<HTMLFormElement>){
+        event.preventDefault()
         console.log(name)
-        axios.post("/api/signUp/user", {
+        axios.post("/api/signUp", {
             name: name,
             password: password
         })
             .then(response => {
-                navigate('/user/' + response.data.id)
+                navigate('/signIn' + response.data.id)
             }).catch(error => console.error(error))
         setName("")
         setPassword("")
@@ -39,14 +40,15 @@ export default function RegisterPage(){
     }
 
     return(
-        <div className={"registerPage"}>
+        <div>
+        <div className={"registerPage"} style={{ backgroundImage: `url(${time})`, height: '100vh', width: '100vw', position: 'fixed'}}>
                 <form onSubmit={addUser}>
                     <div>
-                        <label htmlFor="Username"><b>Username</b></label>
+                        <label><b>Username</b></label>
                             <input placeholder={"Username"} type="text" value={name} onChange={changeEventHandlerUserName}/>
                     </div>
                     <div>
-                        <label htmlFor="Password"><b>Password</b></label>
+                        <label><b>Password</b></label>
                             <input placeholder={"Password"} type="password" value={password} onChange={changeEventHandlerUserPassword}/>
                     </div>
                     <div>
@@ -55,11 +57,11 @@ export default function RegisterPage(){
                         </label>
                     </div>
                     <div className="clearfix">
-                        <button type="button" className="cancelbtn">Cancel</button>
                         <button type="submit" className="signupbtn">Sign Up</button>
+                        <button type="button" className="cancelbtn">Cancel</button>
                     </div>
                 </form>
-            {registrationSuccess && <p>You are registered!</p>}
+        </div>
         </div>
     );
 }
