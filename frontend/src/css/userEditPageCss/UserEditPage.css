@@ -1,0 +1,59 @@
+.profileUserPage {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+}
+
+.imgUser {
+    width: 200px;
+    height: 200px;
+    background-color: #ccc;
+    border-radius: 50%;
+}
+
+.userName {
+    margin-top: 20px;
+    font-size: 24px;
+    font-weight: bold;
+}
+
+.icon-bar {
+    margin-top: 20px;
+}
+
+.icon-bar a {
+
+    text-align: center;
+    flex-direction: row;
+    padding: 16px;
+    transition: all 0.3s ease;
+    color: white;
+    font-size: 20px;
+}
+
+.facebook {
+    background: #3B5998;
+    color: white;
+}
+
+.twitter {
+    background: #55ACEE;
+    color: white;
+}
+
+.google {
+    background: firebrick;
+    color: white;
+}
+
+.youtube{
+    background: #dd4b39;
+    color: white;
+}
+.icon-bar a:hover {
+    background-color: darkkhaki;
+}
+
+
