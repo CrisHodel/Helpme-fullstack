@@ -34,7 +34,7 @@ public class MongoUserDetailsService implements UserDetailsService {
         );
     }
     public UserDetails loadUserByUsername(String name) throws UsernameNotFoundException {
-        User optionalUser = userRepo.findUserNoSaveByName(name)
+        User optionalUser = userRepo.findUserByName(name)
                 .orElseThrow(() -> new UsernameNotFoundException("User with this username: " + name + "not found"));
         return new org.springframework.security.core.userdetails.User(optionalUser.getName(), optionalUser.getPassword(), List.of());
     }
@@ -50,5 +50,11 @@ public class MongoUserDetailsService implements UserDetailsService {
             userDTOS.add(user.convertUserToUserDTO());
         }
         return userDTOS;
+    }
+
+    // die Daten werden an das FE gesendet
+    public UserDTO login(String name) {
+        User newuser = userRepo.findUserByName(name).orElseThrow(() -> new UsernameNotFoundException("User with this username: " + name + "not found"));
+        return new UserDTO(newuser.getId(), newuser.getName(), newuser.getImg());
     }
 }

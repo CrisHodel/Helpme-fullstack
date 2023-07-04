@@ -16,9 +16,7 @@ export default function LoginPage(props: Props) {
         event.preventDefault();
         props.login(username, password)
             .then(() => {
-                navigate("/user"); // Navigiere zur Benutzerseite
-                setUsername("")
-                setPassword("")
+                navigate("/home"); // Navigiere zur Benutzerseite
             })
             .catch(error => {
                 console.error(error);
@@ -49,7 +47,7 @@ export default function LoginPage(props: Props) {
                     <input type="checkbox" defaultChecked name="remember" /> Remember me
                 </label>
                 <div className="form-buttons">
-                    <button type="submit" className="submit">Submit</button>
+                    <button type="submit" className="submit">Sign In</button>
                     <button type="button" className="cancelbtn">Cancel</button>
                 </div>
                 <span className="psw">Forgot <a href="#">password?</a></span>

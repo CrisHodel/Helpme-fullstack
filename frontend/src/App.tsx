@@ -12,6 +12,7 @@ import TranslatePage from "./pages/TranslatePage";
 import PostPage from "./pages/TranslatePage";
 import useUser from "./hooks/useUser";
 import MovingOutPage from "./pages/MovingOutPage";
+import CarPage from "./pages/CarPage";
 
 
 function App() {
@@ -25,13 +26,14 @@ function App() {
                     <Routes>
                         <Route path={"/signUp"} element={<RegisterPage/>}/>
 
-                        <Route element={<ProtectedRoutes user={user}/>}>
+                        <Route element={<ProtectedRoutes user={user?.name}/>}>
 
                         </Route>
                         <Route path={"/signIn"} element={<LoginPage login={login}/>}/>
-                        <Route path="/home" element={<HomePage />} />
+                        <Route path="/home" element={<HomePage user = {user}/>} />
                         <Route path="/translate" element={<TranslatePage />} />
                         <Route path="/movingOut" element={<MovingOutPage />} />
+                        <Route path="/repair" element={<CarPage />} />
                         <Route path={`/user/:id`} element={<UserEditPage/>}/>
                         <Route path={`/post/:id`} element={<PostPage/>}/>
 

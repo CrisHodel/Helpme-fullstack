@@ -23,7 +23,7 @@ public class PostController {
         return postService.getAllPosts();
     }
 
-    @GetMapping("/post/")
+    @GetMapping("/post/{postId}")
     public UserPost getPostPageById(@PathVariable String postId){
         return postService.getPostById(postId);
     }

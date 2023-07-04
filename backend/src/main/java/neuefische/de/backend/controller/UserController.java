@@ -7,6 +7,8 @@ import neuefische.de.backend.service.MongoUserDetailsService;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/api")
@@ -20,13 +22,18 @@ public class UserController {
     }
 
     @PostMapping("/signIn")
-    void login() {
-        SecurityContextHolder.getContext().getAuthentication().getName();
+    public UserDTO login() {
+      return userService.login( SecurityContextHolder.getContext().getAuthentication().getName());
     }
 
     @GetMapping("/user/{id}")
     public UserDTO getUserPageById(@PathVariable String id) {
         return userService.getUserPageById(id);
+    }
+
+    @GetMapping("/users")
+    public List<UserDTO> getAllUser() {
+        return userService.getAllUser();
     }
 }
 

@@ -13,8 +13,6 @@ export default function RegisterPage(){
 
     const [password, setPassword] = useState<string>("");
 
-    const [registrationSuccess, setRegistrationSuccess] = useState<boolean>(false);
-
 
     function addUser(event: FormEvent<HTMLFormElement>){
         event.preventDefault()
@@ -24,11 +22,12 @@ export default function RegisterPage(){
             password: password
         })
             .then(response => {
-                navigate('/signIn' + response.data.id)
+                navigate('/user/' + response.data.id)
             }).catch(error => console.error(error))
         setName("")
         setPassword("")
     }
+
 
     function changeEventHandlerUserName(event: ChangeEvent<HTMLInputElement>){
         console.log(name);

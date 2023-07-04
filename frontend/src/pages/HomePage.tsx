@@ -7,19 +7,21 @@ import PlacesAutocomplete, { geocodeByAddress, getLatLng } from 'react-places-au
 import {Post} from "../types/PostType";
 import time from "../images/time.jpg";
 
-export default function HomePage() {
+type Props = {
+    user: {id: string, name: string, img: string }
+}
+export default function HomePage(props: Props) {
     const navigate = useNavigate();
     const [inputValue, setInputValue] = useState("");
     const [answer, setAnswerValue] = useState("");
     const [selectedPlace, setSelectedPlace] = useState("");
-    const [post, setPost] = useState<Post>({title: "", description: "", userName: "", postId: "" });
+    const [post, setPost] = useState<Post>({postId: "", title: "", userName: "", description: "" });
 
+    const [posts, setPosts] = useState<Post[]>([]);
 
     const [title, setTitle] =
         useState<string>("")
     const [description, setDescription] =
-        useState<string>("")
-    const [userName, setUserName] =
         useState<string>("")
 
     const params = useParams();
@@ -28,31 +30,38 @@ export default function HomePage() {
     function addPost() {
         axios.post("/api/post", {
             title: title,
+            userName: props.user.name,
             description: description,
-            userName: userName,
-        }).catch(error => console.error(error))
-        setTitle("")
-        setDescription("")
-        setUserName("")
-        console.log('post:', post); // Überprüfe hier den Wert von post
+        })
+            .then(() => {
+                getAllPosts();
+            })
+            .catch((error) => console.error(error));
+
+        setTitle("");
+        setDescription("");
     }
 
-    function handleInputChange(event: ChangeEvent<HTMLInputElement>) {
+    function getAllPosts(){
+        axios.get("/api/posts" + id)
+            .then(response => setPosts(response.data))
+            .catch(error => console.error(error));
+    }
+
+    function handleInputChange(event: ChangeEvent<HTMLFormElement>) {
+        event.preventDefault();
         setInputValue(event.target.value);
     }
+    /*function handleSubmit(event: ChangeEvent<HTMLFormElement>) {
+        event.preventDefault();
+    }*/
 
     function handleAnswerChange(event: ChangeEvent<HTMLInputElement>) {
         setAnswerValue(event.target.value);
     }
 
-    function handleSubmit(event: ChangeEvent<HTMLFormElement>) {
-        event.preventDefault();
-        // Handle form submission
-    }
-
     function handleSubmitAnswer(event: ChangeEvent<HTMLFormElement>) {
         event.preventDefault();
-        // Handle answer submission
     }
 
     const handlePlaceChange = (address: string) => {
@@ -69,13 +78,6 @@ export default function HomePage() {
             console.error('Error selecting place', error);
         }
     };
-
-
-    useEffect(() => {
-    axios.get("/api/post/" + id)
-        .then(response => setPost(response.data))
-        .catch(error => console.error(error));
-    }, [id]);
 
     return (
         <div className="home-page" style={{ backgroundImage: `url(${time})`, height: '100vh', width: '100vw', position: 'fixed'}}>
@@ -122,7 +124,7 @@ export default function HomePage() {
                 )}
             </PlacesAutocomplete>
             </div>
-            <form onSubmit={handleSubmit} className="input-form">
+            <form onSubmit={handleInputChange} className="input-form">
                 <input
                     type="text"
                     value={title}
@@ -132,8 +134,8 @@ export default function HomePage() {
                 />
                 <input
                     type="text"
-                    value={userName}
-                    onChange={(event) => setUserName(event.target.value)}
+                    value={props.user.name}
+                    disabled={true}
                     className="input-field"
                     placeholder="Benutzername eingeben..."
                 />
@@ -146,6 +148,16 @@ export default function HomePage() {
                 <button style={{ color: 'black' }} onClick={addPost}>
                     Post
                 </button>
+                {/* Anzeige der Posts */}
+                <div className="post-list">
+                    {posts.map((post) => (
+                        <div key={post.postId} className="post">
+                            <h3>{post.title}</h3>
+                            <p>{post.userName}</p>
+                            <p>{post.description}</p>
+                        </div>
+                    ))}
+                </div>
             </form>
             <form onSubmit={handleSubmitAnswer} className="answer-form">
                 <input

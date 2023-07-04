@@ -2,7 +2,6 @@ import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import '../css/movingOutPageCss/MovingOutPage.css';
 import move from "../images/move.jpg";
-import trans from "../images/trans.jpg";
 
 export default function MovingOutPage() {
     const navigate = useNavigate();
