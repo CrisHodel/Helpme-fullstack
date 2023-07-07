@@ -1,6 +1,7 @@
 package neuefische.de.backend.service;
 
 import lombok.RequiredArgsConstructor;
+import neuefische.de.backend.model.UserAnswer;
 import neuefische.de.backend.model.UserPost;
 import neuefische.de.backend.repo.MongoPostRepo;
 import org.springframework.stereotype.Service;
@@ -27,4 +28,5 @@ public class MongoPostService {
         Optional<UserPost> userPost = postRepo.findById(postId);
         return userPost.get();
     }
+
 }

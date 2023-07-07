@@ -27,6 +27,10 @@ export default function HomePage(props: Props) {
     const params = useParams();
     const id: string | undefined = params.id;
 
+    useEffect(() => {
+        getAllPosts();
+    }, []);
+
     function addPost() {
         axios.post("/api/post", {
             title: title,
@@ -43,18 +47,28 @@ export default function HomePage(props: Props) {
     }
 
     function getAllPosts(){
-        axios.get("/api/posts" + id)
+        axios.get("/api/posts")
             .then(response => setPosts(response.data))
             .catch(error => console.error(error));
+    }
+
+    function addAnswer(postId: string) {
+        axios
+            .post(`/api/post/${postId}/answer`, {
+                answer: answer,
+                userName: props.user.name,
+            })
+            .then(() => {
+                getAllPosts();
+                setAnswerValue('');
+            })
+            .catch((error) => console.error(error));
     }
 
     function handleInputChange(event: ChangeEvent<HTMLFormElement>) {
         event.preventDefault();
         setInputValue(event.target.value);
     }
-    /*function handleSubmit(event: ChangeEvent<HTMLFormElement>) {
-        event.preventDefault();
-    }*/
 
     function handleAnswerChange(event: ChangeEvent<HTMLInputElement>) {
         setAnswerValue(event.target.value);
@@ -79,6 +93,7 @@ export default function HomePage(props: Props) {
         }
     };
 
+
     return (
         <div className="home-page" style={{ backgroundImage: `url(${time})`, height: '100vh', width: '100vw', position: 'fixed'}}>
             <div className="topic-nav">
@@ -96,82 +111,86 @@ export default function HomePage(props: Props) {
                 </div>
             </div>
             <div>
-            <PlacesAutocomplete
-                value={selectedPlace}
-                onChange={handlePlaceChange}
-                onSelect={handlePlaceSelect}
-            >
-                {({ getInputProps, suggestions, getSuggestionItemProps, loading }: any) => (
-                    <div className="places-autocomplete">
-                        <input
-                            {...getInputProps({
-                                placeholder: 'Ort suchen...',
-                                className: 'places-input',
-                            })}
-                        />
-                        <div className="places-suggestions">
-                            {loading && <div>Loading...</div>}
-                            {suggestions.map((suggestion: any, index: number) => (
-                                <div
-                                    key={index}
-                                    {...getSuggestionItemProps(suggestion, { className: "suggestion-item" })}
-                                >
-                                    {suggestion.description}
-                                </div>
-                            ))}
+                <PlacesAutocomplete
+                    value={selectedPlace}
+                    onChange={handlePlaceChange}
+                    onSelect={handlePlaceSelect}
+                >
+                    {({ getInputProps, suggestions, getSuggestionItemProps, loading }: any) => (
+                        <div className="places-autocomplete">
+                            <input
+                                {...getInputProps({
+                                    placeholder: 'Ort suchen...',
+                                    className: 'places-input',
+                                })}
+                            />
+                            <div className="places-suggestions">
+                                {loading && <div>Loading...</div>}
+                                {suggestions.map((suggestion: any, index: number) => (
+                                    <div
+                                        key={index}
+                                        {...getSuggestionItemProps(suggestion, { className: "suggestion-item" })}
+                                    >
+                                        {suggestion.description}
+                                    </div>
+                                ))}
+                            </div>
                         </div>
-                    </div>
-                )}
-            </PlacesAutocomplete>
+                    )}
+                </PlacesAutocomplete>
             </div>
             <form onSubmit={handleInputChange} className="input-form">
-                <input
-                    type="text"
-                    value={title}
-                    onChange={(event) => setTitle(event.target.value)}
-                    className="input-field"
-                    placeholder="Titel eingeben..."
-                />
-                <input
-                    type="text"
-                    value={props.user.name}
-                    disabled={true}
-                    className="input-field"
-                    placeholder="Benutzername eingeben..."
-                />
-                <textarea
-                    value={description}
-                    onChange={(event) => setDescription(event.target.value)}
-                    className="input-field"
-                    placeholder="Beschreibung eingeben..."
-                ></textarea>
-                <button style={{ color: 'black' }} onClick={addPost}>
-                    Post
-                </button>
-                {/* Anzeige der Posts */}
-                <div className="post-list">
+                <div className="input-container">
+                    <input
+                        type="text"
+                        value={title}
+                        onChange={(event) => setTitle(event.target.value)}
+                        className="input-field-title"
+                        placeholder="Titel eingeben..."
+                    />
+                    <input
+                        type="text"
+                        value={props.user.name}
+                        disabled={true}
+                        className="input-field"
+                        placeholder="Benutzername eingeben..."
+                    />
+                    <textarea
+                        value={description}
+                        onChange={(event) => setDescription(event.target.value)}
+                        className="input-field-textarea"
+                        placeholder="Beschreibung eingeben..."
+                    ></textarea>
+                    <button style={{ color: 'black' }} onClick={addPost}>
+                        Post
+                    </button>
+                </div>
+                <div className="post-list-container">
                     {posts.map((post) => (
                         <div key={post.postId} className="post">
                             <h3>{post.title}</h3>
                             <p>{post.userName}</p>
-                            <p>{post.description}</p>
+                            <pre>{post.description}</pre>
+                            <div className="answer-form">
+                                <input
+                                    type="text"
+                                    value={answer}
+                                    onChange={handleAnswerChange}
+                                    className="answer-field"
+                                    placeholder="Antwort eingeben..."
+                                />
+                                <button
+                                    type="submit"
+                                    className="submit-button"
+                                    onClick={() => addAnswer(post.postId)}
+                                >
+                                    Antworten
+                                </button>
+                            </div>
                         </div>
                     ))}
                 </div>
             </form>
-            <form onSubmit={handleSubmitAnswer} className="answer-form">
-                <input
-                    type="text"
-                    value={answer}
-                    onChange={handleAnswerChange}
-                    className="answer-field"
-                    placeholder="Antwort eingeben..."
-                />
-                <button type="submit" className="submit-button">
-                    Antworten
-                </button>
-            </form>
         </div>
-
     );
 }

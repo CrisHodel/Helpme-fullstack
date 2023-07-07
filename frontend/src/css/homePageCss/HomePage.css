@@ -31,18 +31,16 @@
     align-items: center;
     width: 500px;
     margin-top: -210px;
-    height: 300px; /* Hier können Sie die gewünschte Höhe einstellen */
+    height: 800px;
 }
 
 .input-field {
+    width: 600%;
     outline: none;
     background-color: white;
-    color: #333333;
     border: 1px solid #CCCCCC;
     border-radius: 4px;
-    padding: 12px; /* Hier können Sie die gewünschte Padding-Größe einstellen */
     box-shadow: 0 2px 4px rgba(6, 8, 0, 0.1);
-    margin-bottom: 10px; /* Fügt etwas Abstand zwischen den Eingabefeldern hinzu */
 }
 
 .places-autocomplete {
@@ -71,8 +69,51 @@
     background-color: #F2F2F2;
 }
 
-.description{
-   align-content: flex-end;
+.post-list {
+    background-color: white;
+    width: 500px;
+    height: 250px;
+    overflow: scroll;
+}
+.post{
+    border: 1px solid #CCCCCC;
+    padding-top: 10px;
 }
 
+.answer-form {
+    display: flex;
+    align-items: center;
+    margin-top: 10px;
+    width: 400px;
+    padding-left: 20px;
+}
 
+.answer-form .answer-field {
+    width: 900px;
+    padding-left: -300px;
+    margin-right: 20px;
+}
+
+.input-container {
+    width: 100%;
+    margin-bottom: 10px;
+}
+
+.answer-container {
+    width: 500%;
+    margin-bottom: 10px;
+    padding-right: 300px;
+}
+.input-field-textarea{
+    margin-top: 10px;
+    height: 70px;
+    width: 493px;
+}
+
+.post-list-container {
+    width: 500px;
+    height: 250px;
+    overflow: scroll;
+    background-color: white;
+    margin-bottom: 10px;
+}

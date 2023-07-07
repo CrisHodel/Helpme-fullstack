@@ -1,6 +1,7 @@
 package neuefische.de.backend.controller;
 
 import lombok.RequiredArgsConstructor;
+import neuefische.de.backend.model.UserAnswer;
 import neuefische.de.backend.model.UserPost;
 import neuefische.de.backend.service.MongoPostService;
 import org.springframework.web.bind.annotation.*;
@@ -27,4 +28,5 @@ public class PostController {
     public UserPost getPostPageById(@PathVariable String postId){
         return postService.getPostById(postId);
     }
+
 }

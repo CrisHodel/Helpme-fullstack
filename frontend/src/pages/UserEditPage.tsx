@@ -5,6 +5,8 @@ import { useParams } from 'react-router-dom';
 import '../css/userEditPageCss/UserEditPage.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faFacebook, faTwitter, faGoogle, faYoutube } from '@fortawesome/free-brands-svg-icons';
+import avat from "../images/avat.jpg";
+
 
 export default function UserEditPage() {
     const [user, setUser] = useState<User>({ id: '', name: '', password: '', img: '' });
@@ -23,7 +25,8 @@ export default function UserEditPage() {
 
     return (
         <div className={'profileUserPage'}>
-            <div className={'imgUser'}></div>
+            <div className="imgUser" style={{ backgroundImage: `url(${avat})` }}></div>
+
             <div className={'userName'}>{user.name}</div>
             <div className="icon-bar">
                 <a href="#" className="facebook">
@@ -39,6 +42,15 @@ export default function UserEditPage() {
                     <FontAwesomeIcon icon={faYoutube} />
                 </a>
             </div>
+            <span className="heading">User Rating</span>
+            <span className="fa fa-star checked"></span>
+            <span className="fa fa-star checked"></span>
+            <span className="fa fa-star checked"></span>
+            <span className="fa fa-star checked"></span>
+            <span className="fa fa-star"></span>
+            <p>4.1 average based on 100 reviews.</p>
+            <hr style={{ border: '3px solid #f1f1f1' }} />
         </div>
     );
 }
+

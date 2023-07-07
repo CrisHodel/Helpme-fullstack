@@ -13,6 +13,7 @@ import PostPage from "./pages/TranslatePage";
 import useUser from "./hooks/useUser";
 import MovingOutPage from "./pages/MovingOutPage";
 import CarPage from "./pages/CarPage";
+import OtherPage from "./pages/Other";
 
 
 function App() {
@@ -34,6 +35,7 @@ function App() {
                         <Route path="/translate" element={<TranslatePage />} />
                         <Route path="/movingOut" element={<MovingOutPage />} />
                         <Route path="/repair" element={<CarPage />} />
+                        <Route path="/other" element={<OtherPage />} />
                         <Route path={`/user/:id`} element={<UserEditPage/>}/>
                         <Route path={`/post/:id`} element={<PostPage/>}/>
 
