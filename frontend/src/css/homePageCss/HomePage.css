@@ -117,3 +117,15 @@
     background-color: white;
     margin-bottom: 10px;
 }
+
+.answer-text{
+    background-color: #CCCCCC;
+    height: 50px;
+}
+.answer-button {
+    color: black;
+    background-color: transparent;
+    border: none;
+    text-decoration: underline;
+    cursor: pointer;
+}

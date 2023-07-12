@@ -14,7 +14,7 @@ import useUser from "./hooks/useUser";
 import MovingOutPage from "./pages/MovingOutPage";
 import CarPage from "./pages/CarPage";
 import OtherPage from "./pages/Other";
-
+import AnswerPage from './pages/AnswerPage';
 
 function App() {
 
@@ -38,6 +38,7 @@ function App() {
                         <Route path="/other" element={<OtherPage />} />
                         <Route path={`/user/:id`} element={<UserEditPage/>}/>
                         <Route path={`/post/:id`} element={<PostPage/>}/>
+                        <Route path={`/answer/:id`} element={<AnswerPage/>}/>
 
                     </Routes>
                 <header><FooterPage/></header>

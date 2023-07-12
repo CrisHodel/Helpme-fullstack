@@ -10,12 +10,11 @@ import time from "../images/time.jpg";
 type Props = {
     user: {id: string, name: string, img: string }
 }
+
 export default function HomePage(props: Props) {
     const navigate = useNavigate();
     const [inputValue, setInputValue] = useState("");
-    const [answer, setAnswerValue] = useState("");
     const [selectedPlace, setSelectedPlace] = useState("");
-    const [post, setPost] = useState<Post>({postId: "", title: "", userName: "", description: "" });
 
     const [posts, setPosts] = useState<Post[]>([]);
 
@@ -54,13 +53,10 @@ export default function HomePage(props: Props) {
 
     function addAnswer(postId: string) {
         axios
-            .post(`/api/post/${postId}/answer`, {
-                answer: answer,
-                userName: props.user.name,
-            })
-            .then(() => {
-                getAllPosts();
-                setAnswerValue('');
+            .post("/api/answer", {
+                userAnswerName: (posts.find(p=> p.postId === postId ) || {answer: "" }).answer,
+                postId: postId,
+                userName : props.user.name,
             })
             .catch((error) => console.error(error));
     }
@@ -68,14 +64,6 @@ export default function HomePage(props: Props) {
     function handleInputChange(event: ChangeEvent<HTMLFormElement>) {
         event.preventDefault();
         setInputValue(event.target.value);
-    }
-
-    function handleAnswerChange(event: ChangeEvent<HTMLInputElement>) {
-        setAnswerValue(event.target.value);
-    }
-
-    function handleSubmitAnswer(event: ChangeEvent<HTMLFormElement>) {
-        event.preventDefault();
     }
 
     const handlePlaceChange = (address: string) => {
@@ -139,7 +127,8 @@ export default function HomePage(props: Props) {
                     )}
                 </PlacesAutocomplete>
             </div>
-            <form onSubmit={handleInputChange} className="input-form">
+            <form onSubmit={
+                handleInputChange} className="input-form">
                 <div className="input-container">
                     <input
                         type="text"
@@ -174,19 +163,33 @@ export default function HomePage(props: Props) {
                             <div className="answer-form">
                                 <input
                                     type="text"
-                                    value={answer}
-                                    onChange={handleAnswerChange}
+                                    value={post.answer || ""}
+                                    onChange={event => {
+                                        setPosts(posts.map(p=>{
+                                            return p.postId === post.postId ? {
+                                                ...p, answer: event.target.value
+                                            }: p;
+                                        }))
+                                    }}
                                     className="answer-field"
                                     placeholder="Antwort eingeben..."
                                 />
-                                <button
-                                    type="submit"
-                                    className="submit-button"
-                                    onClick={() => addAnswer(post.postId)}
-                                >
-                                    Antworten
-                                </button>
+                                <div className={"answer"}>
+                                    <button
+                                        type="submit"
+                                        className="submit-button"
+                                        onClick={() => addAnswer(post.postId)}
+                                    >
+                                        Antworten
+                                    </button>
+                                </div>
                             </div>
+                            {post.answer && (
+                                <div>
+                                    <strong>Antwort: </strong>
+                                    <p className={"answer-text"}>{post.answer}</p>
+                                </div>
+                            )}
                         </div>
                     ))}
                 </div>
