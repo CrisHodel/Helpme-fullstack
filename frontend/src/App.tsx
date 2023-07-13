@@ -1,26 +1,50 @@
 import React from 'react';
-import logo from './logo.svg';
+import HomePage from "./pages/HomePage";
 import './App.css';
+import { Route, BrowserRouter as Router, Routes } from 'react-router-dom';
+import RegisterPage from "./pages/RegisterPage";
+import Header from "./pages/Header";
+import LoginPage from "./pages/LoginPage";
+import ProtectedRoutes from "./pages/ProtectedRoutes";
+import FooterPage from "./pages/Footer";
+import UserEditPage from "./pages/UserEditPage";
+import TranslatePage from "./pages/TranslatePage";
+import PostPage from "./pages/TranslatePage";
+import useUser from "./hooks/useUser";
+import MovingOutPage from "./pages/MovingOutPage";
+import CarPage from "./pages/CarPage";
+import OtherPage from "./pages/Other";
+import AnswerPage from './pages/AnswerPage';
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+
+    const {login, user} = useUser()
+
+    return (
+        <Router>
+            <div className="App">
+                <header><Header/></header>
+                    <Routes>
+                        <Route path={"/signUp"} element={<RegisterPage/>}/>
+
+                        <Route element={<ProtectedRoutes user={user?.name}/>}>
+
+                        </Route>
+                        <Route path={"/signIn"} element={<LoginPage login={login}/>}/>
+                        <Route path="/home" element={<HomePage user = {user}/>} />
+                        <Route path="/translate" element={<TranslatePage />} />
+                        <Route path="/movingOut" element={<MovingOutPage />} />
+                        <Route path="/repair" element={<CarPage />} />
+                        <Route path="/other" element={<OtherPage />} />
+                        <Route path={`/user/:id`} element={<UserEditPage/>}/>
+                        <Route path={`/post/:id`} element={<PostPage/>}/>
+                        <Route path={`/answer/:id`} element={<AnswerPage/>}/>
+
+                    </Routes>
+                <header><FooterPage/></header>
+            </div>
+        </Router>
+    );
 }
 
 export default App;

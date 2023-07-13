@@ -1,0 +1,54 @@
+.header-container {
+    display: flex;
+    justify-content: end;
+    align-items: center;
+    position: relative; /* Positionierung für das Logo */
+    padding-bottom: 10px; /* Abstand unterhalb des Headers */
+    border-bottom: 1px dashed #ccc; /* Gestrichelte Linie unterhalb des Headers */
+}
+
+.header-signup-button {
+    font-size: 14px;
+    padding: 6px 12px;
+    background-color: #e91e63;
+    color: #fff;
+}
+
+.header-signin-button {
+    font-size: 14px;
+    padding: 6px 12px;
+    background-color: #03a9f4;
+    color: #fff;
+}
+
+.header-home-button {
+    font-size: 14px;
+    padding: 6px 12px;
+    background-color: #4caf50;
+    color: #fff;
+}
+
+.header-container .logo {
+    width: 40px;
+    height: 40px;
+    position: absolute; /* Fixiere das Logo */
+    top: 0; /* Positioniere es oben */
+    left: 0; /* Positioniere es links */
+    margin-left: 10px; /* Füge einen Abstand zum linken Rand hinzu */
+}
+
+.logo-container {
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.logo-text {
+    position: fixed;
+    font-size: 10px;
+    font-weight: bold;
+    margin-top: 43px;
+    margin-left: 10px;
+    top: 0; /* Positioniere es oben */
+    left: 0; /* Positioniere es links */
+}
